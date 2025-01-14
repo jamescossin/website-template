@@ -47,7 +47,7 @@ const Header = () => {
         {/* Logo as a React Router Link */}
         <RouterLink to="/"  onClick={closeMenu} style={{ textDecoration: "none", color: HEADER_TEXT_COLOR }}>
           <Box fontWeight="bold" fontSize="lg">
-            ModernBrand
+            Calucid Template
           </Box>
         </RouterLink>
 
