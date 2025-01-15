@@ -13,11 +13,13 @@ import FAQ from "./pages/FAQ";
 import Events from "./pages/Events";
 import Gallery from "./pages/Gallery";
 import Pricing from "./pages/Pricing";
+import ScrollToTop from "./components/scrollToTop";
 
 
 function App() {
   return (
     <div>
+      <ScrollToTop></ScrollToTop>
     <Header></Header>
       <Routes>
         <Route path="/" element={<Home />} />
