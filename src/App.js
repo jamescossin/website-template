@@ -33,6 +33,7 @@ function App() {
         <Route path="/events" element={<Events />} />
         <Route path="/gallery" element={<Gallery />} />
         <Route path="/pricing" element={<Pricing />} />
+        <Route path="/hours" element={<Hours />} />
 
 
 
