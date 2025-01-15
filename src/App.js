@@ -14,6 +14,7 @@ import Events from "./pages/Events";
 import Gallery from "./pages/Gallery";
 import Pricing from "./pages/Pricing";
 import ScrollToTop from "./components/scrollToTop";
+import Hours from "./pages/Hours";
 
 
 function App() {

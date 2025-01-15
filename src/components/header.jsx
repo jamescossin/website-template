@@ -80,7 +80,7 @@ const Header = () => {
       </Flex>
 
       {/* Mobile Navigation Menu */}
-      <Collapse in={menuOpen} animateOpacity>
+      <Collapse in={menuOpen} >
   <VStack
     as="nav"
     spacing={0}
