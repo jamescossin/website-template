@@ -6,31 +6,27 @@ import { useRef, useState } from "react";
 // Color Variables
 const HEADER_BG_COLOR = "gray.800";
 const HEADER_TEXT_COLOR = "white";
-const LINK_HOVER_COLOR = "gray.500";
+const LINK_HOVER_COLOR = "gray";
+
+// Website Name
+const LogoName = "Calucid Template";
+
+// Page Links Configuration
+const PAGES = [
+  { name: "Home", path: "/" },
+  { name: "About", path: "/about" },
+  { name: "Services", path: "/services" },
+  { name: "Contact", path: "/contact" },
+];
 
 const Header = () => {
-  const [menuOpen, setMenuOpen] = useState(false); // Replaces isOpen
+  const [menuOpen, setMenuOpen] = useState(false);
   const ref = useRef();
 
-  const toggleMenu = () => {
-    setMenuOpen(true);
-    console.log(menuOpen);
-    if (menuOpen) {
-      console.log("Closing menu");
-      setMenuOpen(false); // Close menu if it's currently open
-    } else {
-      console.log("Opening menu");
-      setMenuOpen(true); // Open menu if it's currently c
-      
-    }
-  };  
+  const toggleMenu = () => setMenuOpen((prev) => !prev);
+  const closeMenu = () => setMenuOpen(false);
 
-  const closeMenu = () => setMenuOpen(false); // Close menu explicitly
-
-  useOutsideClick({
-    ref: ref,
-    handler: () => closeMenu(),
-  });
+  useOutsideClick({ ref, handler: closeMenu });
 
   return (
     <Box
@@ -44,30 +40,31 @@ const Header = () => {
       zIndex={10}
     >
       <Flex h={16} alignItems="center" justifyContent="space-between">
-        {/* Logo as a React Router Link */}
-        <RouterLink to="/"  onClick={closeMenu} style={{ textDecoration: "none", color: HEADER_TEXT_COLOR }}>
-          <Box fontWeight="bold" fontSize="lg">
-            Calucid Template
-          </Box>
+        {/* Logo */}
+        <RouterLink to="/" onClick={closeMenu} style={{ textDecoration: "none", color: HEADER_TEXT_COLOR }}>
+          <Box fontWeight="bold" fontSize="lg">{LogoName}</Box>
         </RouterLink>
 
-        {/* Navigation Links for Desktop */}
+        {/* Desktop Navigation */}
         <HStack as="nav" spacing={4} display={{ base: "none", md: "flex" }}>
-          <RouterLink to="/" style={{ textDecoration: "none", color: HEADER_TEXT_COLOR }}>
-            Home
-          </RouterLink>
-          <RouterLink to="/about" style={{ textDecoration: "none", color: HEADER_TEXT_COLOR }}>
-            About
-          </RouterLink>
-          <RouterLink to="/services" style={{ textDecoration: "none", color: HEADER_TEXT_COLOR }}>
-            Services
-          </RouterLink>
-          <RouterLink to="/contact" style={{ textDecoration: "none", color: HEADER_TEXT_COLOR }}>
-            Contact
-          </RouterLink>
+          {PAGES.map(({ name, path }) => (
+            <RouterLink
+              key={name}
+              to={path}
+              style={{
+                textDecoration: "none", 
+                color: HEADER_TEXT_COLOR, 
+                transition: "color 0.2s",
+              }}
+              onMouseEnter={(e) => (e.target.style.color = LINK_HOVER_COLOR)}
+              onMouseLeave={(e) => (e.target.style.color = HEADER_TEXT_COLOR)}
+            >
+              {name}
+            </RouterLink>
+          ))}
         </HStack>
 
-        {/* Mobile Menu Toggle */}
+        {/* Mobile Menu Button */}
         <IconButton
           size="md"
           icon={menuOpen ? <CloseIcon /> : <HamburgerIcon />}
@@ -79,77 +76,43 @@ const Header = () => {
         />
       </Flex>
 
-      {/* Mobile Navigation Menu */}
-      <Collapse in={menuOpen} >
-  <VStack
-    as="nav"
-    spacing={0}
-    align="start"
-    color={HEADER_TEXT_COLOR}
-    p={0}
-    display={{ md: "none" }}
-    position="absolute" // Add this
-    top="100%" // Position it directly below the header
-    left="0" // Align it to the left edge of the header
-    bg={HEADER_BG_COLOR} // Add a background color to match the header
-    w="100%" // Correct usage of calc()
-    zIndex={9} // Ensure it stays above other content
-  >
-    <RouterLink
-      to="/"
-      onClick={closeMenu}
-      style={{
-        margin: "20px",
-        display: "block",
-        textAlign: "center",
-        textDecoration: "none",
-        color: HEADER_TEXT_COLOR,
-      }}
-    >
-      Home
-    </RouterLink>
-    <RouterLink
-      to="/about"
-      onClick={closeMenu}
-      style={{
-        margin: "20px",
-        display: "block",
-        textAlign: "center",
-        textDecoration: "none",
-        color: HEADER_TEXT_COLOR,
-      }}
-    >
-      About
-    </RouterLink>
-    <RouterLink
-      to="/services"
-      onClick={closeMenu}
-      style={{
-        margin: "20px",
-        display: "block",
-        textAlign: "center",
-        textDecoration: "none",
-        color: HEADER_TEXT_COLOR,
-      }}
-    >
-      Services
-    </RouterLink>
-    <RouterLink
-      to="/contact"
-      onClick={closeMenu}
-      style={{
-        margin: "20px",
-        display: "block",
-        textAlign: "center",
-        textDecoration: "none",
-        color: HEADER_TEXT_COLOR,
-      }}
-    >
-      Contact
-    </RouterLink>
-  </VStack>
-</Collapse>
-
+      {/* Mobile Navigation */}
+      <Collapse in={menuOpen}>
+        <VStack
+          as="nav"
+          spacing={0}
+          align="start"
+          color={HEADER_TEXT_COLOR}
+          p={0}
+          display={{ md: "none" }}
+          position="absolute"
+          top="100%"
+          left="0"
+          bg={HEADER_BG_COLOR}
+          w="100%"
+          zIndex={9}
+        >
+          {PAGES.map(({ name, path }) => (
+            <RouterLink
+              key={name}
+              to={path}
+              onClick={closeMenu}
+              style={{
+                margin: "20px",
+                display: "block",
+                textAlign: "center",
+                textDecoration: "none",
+                color: HEADER_TEXT_COLOR,
+                transition: "color 0.2s",
+              }}
+              onMouseEnter={(e) => (e.target.style.color = LINK_HOVER_COLOR)}
+              onMouseLeave={(e) => (e.target.style.color = HEADER_TEXT_COLOR)}
+            >
+              {name}
+            </RouterLink>
+          ))}
+        </VStack>
+      </Collapse>
     </Box>
   );
 };
