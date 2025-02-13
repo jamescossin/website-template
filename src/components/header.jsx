@@ -14,8 +14,9 @@ const LogoName = "Calucid Template";
 // Page Links Configuration
 const PAGES = [
   { name: "Home", path: "/" },
-  { name: "About", path: "/about" },
-  { name: "Services", path: "/services" },
+  { name: "Menu", path: "/menu" },
+  {name: "Visit Us", path: "/visit"},
+  {name: "About", path: "/about"},
   { name: "Contact", path: "/contact" },
 ];
 
