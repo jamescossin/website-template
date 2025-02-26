@@ -78,42 +78,46 @@ const Header = () => {
       </Flex>
 
       {/* Mobile Navigation */}
-      <Collapse in={menuOpen}>
-        <VStack
-          as="nav"
-          spacing={0}
-          align="start"
-          color={HEADER_TEXT_COLOR}
-          p={0}
-          display={{ md: "none" }}
-          position="absolute"
-          top="100%"
-          left="0"
-          bg={HEADER_BG_COLOR}
-          w="100%"
-          zIndex={9}
-        >
-          {PAGES.map(({ name, path }) => (
-            <RouterLink
-              key={name}
-              to={path}
-              onClick={closeMenu}
-              style={{
-                margin: "20px",
-                display: "block",
-                textAlign: "center",
-                textDecoration: "none",
-                color: HEADER_TEXT_COLOR,
-                transition: "color 0.2s",
-              }}
-              onMouseEnter={(e) => (e.target.style.color = LINK_HOVER_COLOR)}
-              onMouseLeave={(e) => (e.target.style.color = HEADER_TEXT_COLOR)}
-            >
-              {name}
-            </RouterLink>
-          ))}
-        </VStack>
-      </Collapse>
+      <VStack
+        as="nav"
+        spacing={0}
+        align="start"
+        color={HEADER_TEXT_COLOR}
+        p={0}
+        display={{ md: "none" }}
+        position="absolute"
+        top="100%"
+        left="0"
+        bg={HEADER_BG_COLOR}
+        w="100%"
+        zIndex={9}
+        style={{
+          maxHeight: menuOpen ? "300px" : "0px", // Adjust max height based on content
+          opacity: menuOpen ? 1 : 0,
+          overflow: "hidden",
+          transition: "max-height 0.3s ease-in-out, opacity 0.2s ease-in-out",
+        }}
+      >
+        {PAGES.map(({ name, path }) => (
+          <RouterLink
+            key={name}
+            to={path}
+            onClick={closeMenu}
+            style={{
+              margin: "20px",
+              display: "block",
+              textAlign: "center",
+              textDecoration: "none",
+              color: HEADER_TEXT_COLOR,
+              transition: "color 0.2s",
+            }}
+            onMouseEnter={(e) => (e.target.style.color = LINK_HOVER_COLOR)}
+            onMouseLeave={(e) => (e.target.style.color = HEADER_TEXT_COLOR)}
+          >
+            {name}
+          </RouterLink>
+        ))}
+      </VStack>
     </Box>
   );
 };
